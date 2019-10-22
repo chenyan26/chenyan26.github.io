@@ -97,12 +97,11 @@
 </div>
         <div class="post-content">
             <p>前端的架构建设本身是有一定的复杂度的，但是不论架构复杂还是简单都有其设计理由（主要是人力、时间、能力值）和目的。架构上的投入需要能获得对应的收益，每项投入的收益就成为我们架构建设成果的评估标准之一。</p>
-<p>年初我们采用了服务端渲染SSR技术来提升我们的首屏页面打开速度，那如何监控和衡量各个国家关键页面的首屏渲染耗时、分析定位高于预期耗时的页面的问题就成为我们架构建设的一个重点（KPI体现+甩锅依据）。</p>
+<p>年初我们采用了服务端渲染SSR技术来提升我们的首屏页面打开速度，那如何监控和衡量各个国家关键页面的首屏渲染耗时、分析定位高于预期耗时的页面的问题就成为我们架构建设的一个（KPI体现+甩锅依据）重点。</p>
 <a id="more"></a>
 <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>尽管服务端渲染SSR确实有很多的优点，但是也为整个前端项目引入了复杂度。前端不再是只是build出项目的静态文件产物，还需要维护SSR的Server（即采用Egg所运行的Node服务）的正常运行。我们花费了很多的精力来保障Node服务的正常运行（之前趟了不少Node的坑，但是也填不平现在的坑呀～），组里的Node大神经过封封邮件洗礼已然进入淡然面对Node的花样挂科的境界。</p>
 <p>吐槽至此，该说正事了。</p>
 <h3 id="前端性能衡量指标"><a href="#前端性能衡量指标" class="headerlink" title="前端性能衡量指标"></a>前端性能衡量指标</h3><p>先来看看常规的前端性能衡量指标：<br><a href="http://javascript.ruanyifeng.com/bom/performance.html#toc0" target="_blank" rel="noopener">Performance API</a></p>
-<p><img src="https://raw.githubusercontent.com/devchenyan/pic/hexo/WX20191022-092250%402x.png" alt></p>
 
         </div>
         

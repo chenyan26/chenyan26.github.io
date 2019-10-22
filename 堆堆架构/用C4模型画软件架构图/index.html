@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>Echo Chen的地盘</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_859455_eaq7v6w8ktj.css">
+</head>
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+            Echo Chen's Blog
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link" >
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+
+            
+            <a href="/about/" class="header-nav-link">
+                About
+            </a>
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Echo Chen's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">【堆堆架构】用C4模型画软件架构图</h2>
+            <div class="post-meta">
+                <span class="post-time">2019-02-21</span>
+                
+                <span class="post-category">
+                    
+                    <a class="category" href="/categories/堆堆架构/">堆堆架构</a>
+                    
+                </span>
+                
+                <span class="post-visit"> visited：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#C4模型"><span class="toc-text">C4模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第1层：系统上下文（Context）"><span class="toc-text">第1层：系统上下文（Context）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第2层：容器（Container"><span class="toc-text">第2层：容器（Container</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第3层：组件（Component）"><span class="toc-text">第3层：组件（Component）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第4层：代码（Code）"><span class="toc-text">第4层：代码（Code）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PlantUML"><span class="toc-text">PlantUML</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Requirements-for-Local-render"><span class="toc-text">Requirements for Local render</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选择正确的Extension"><span class="toc-text">选择正确的Extension</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C4-PlantUML"><span class="toc-text">C4-PlantUML</span></a></li></ol></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">回到顶部</a>
+    </div>
+</div>
+        <div class="post-content">
+            <p>探寻架构之路时总会迷茫，找不到方向缺少实践的指导和有力的工具。之前曾试着架构过iOS的分层和网络架构，但还是有些思路混乱、分析边界不清晰。</p>
+<p>偶然阅读到两篇文章<a href="https://www.infoq.cn/article/crafting-architectural-diagrams/" target="_blank" rel="noopener">《软件架构图的艺术》</a>、<a href="https://www.infoq.cn/article/C4-architecture-model/" target="_blank" rel="noopener">《用于软件架构的C4模型》</a>，一时间感觉整个视野打开了，心情豁然开朗。原来我的架构的混乱并不只是缺乏足够的架构思维训练，主要是设计时层级没有区分产生的冲突、抽象没有清晰导致的混乱。</p>
+<a id="more"></a>
+<h2 id="C4模型"><a href="#C4模型" class="headerlink" title="C4模型"></a>C4模型</h2><blockquote>
+<p>C4代表上下文（Context）、容器（Container）、组件（Component）和代码（Code）——一系列分层的图表，可以用这些图表来描述不同缩放级别的软件架构，每种图表都适用于不同的受众。</p>
+</blockquote>
+<h3 id="第1层：系统上下文（Context）"><a href="#第1层：系统上下文（Context）" class="headerlink" title="第1层：系统上下文（Context）"></a>第1层：系统上下文（Context）</h3><p>它显示了正在构建的软件系统，以及系统与用户及其他软件系统之间的关系。<br><img src="https://s3.amazonaws.com/infoq.content.live.0/articles/C4-architecture-model/zh/resources/794-1530372964263.jpg" alt></p>
+<h3 id="第2层：容器（Container"><a href="#第2层：容器（Container" class="headerlink" title="第2层：容器（Container"></a>第2层：容器（Container</h3><p>将软件系统放大，显示组成该软件系统的容器（应用程序、数据存储、微服务等）。<br><img src="https://static001.infoq.cn/resource/image/ff/ea/ff26aa85f64c7605a66798506feaf3ea.jpg" alt></p>
+<h3 id="第3层：组件（Component）"><a href="#第3层：组件（Component）" class="headerlink" title="第3层：组件（Component）"></a>第3层：组件（Component）</h3><p>将单个容器放大，以显示其中的组件。这些组件映射到代码库中的真实抽象（例如一组代码）。<br><img src="https://static001.infoq.cn/resource/image/73/dd/7305c5739d2caff49f5452dd040efedd.jpg" alt></p>
+<h3 id="第4层：代码（Code）"><a href="#第4层：代码（Code）" class="headerlink" title="第4层：代码（Code）"></a>第4层：代码（Code）</h3><p>可以放大个别组件，以显示该组件的实现方式。<br><img src="https://static001.infoq.cn/resource/image/c0/42/c0bba922b79ef285be48c08681047b42.jpg" alt></p>
+<h2 id="PlantUML"><a href="#PlantUML" class="headerlink" title="PlantUML"></a>PlantUML</h2><p>经过对 <a href="https://c4model.com/" target="_blank" rel="noopener">https://c4model.com/</a> 的研读，发现有不少的Tooling可供选择。考虑到Structurizr需要付费使用，draw.io插件的使用方式比较耗时不便。其中通过C4-PlantUML可以方便快捷的使用PlantUML（以前用在Confluence它画过UML图，感觉编码的方式绘图真的很方便），而且VSCode也有<a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml" target="_blank" rel="noopener">PlantUML</a> Extension可以帮助我们快速预览。但是安装的过程中也遇到了一些问题：</p>
+<h3 id="Requirements-for-Local-render"><a href="#Requirements-for-Local-render" class="headerlink" title="Requirements for Local render"></a>Requirements for Local render</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew cask install java</span><br><span class="line">brew install graphviz</span><br></pre></td></tr></table></figure>
+<h3 id="选择正确的Extension"><a href="#选择正确的Extension" class="headerlink" title="选择正确的Extension"></a>选择正确的Extension</h3><p>图中另外两个扩展是完全不要装的，我因为安装了它们导致了key map绑定冲突、还有扩展本身问题无法使用的问题，所以特意记录提醒。<br><img src="https://raw.githubusercontent.com/devchenyan/pic/hexo/WX20191022-092250%402x.png" alt></p>
+<h3 id="C4-PlantUML"><a href="#C4-PlantUML" class="headerlink" title="C4-PlantUML"></a>C4-PlantUML</h3><p><a href="https://github.com/RicardoNiepel/C4-PlantUML" target="_blank" rel="noopener">参考文档</a>使用只需要引入Context、Container、Componen的puml文件，示例如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@startuml Basic Sample</span><br><span class="line">!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/release/1-0/C4_Context.puml</span><br><span class="line">!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/release/1-0/C4_Container.puml</span><br><span class="line">!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/release/1-0/C4_Component.puml</span><br><span class="line"></span><br><span class="line">Person(admin, &quot;Administrator&quot;)</span><br><span class="line"></span><br><span class="line">System_Boundary(c1, &quot;Sample System&quot;) &#123;</span><br><span class="line">    Container(web_app, &quot;Web Application&quot;, &quot;C#, ASP.NET Core 2.1 MVC&quot;, &quot;Allows users to compare multiple Twitter timelines&quot;)</span><br><span class="line">&#125;</span><br><span class="line">System(twitter, &quot;Twitter&quot;)</span><br><span class="line"></span><br><span class="line">Rel(admin, web_app, &quot;Uses&quot;, &quot;HTTPS&quot;)</span><br><span class="line">Rel(web_app, twitter, &quot;Gets tweets from&quot;, &quot;HTTPS&quot;)</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://raw.githubusercontent.com/devchenyan/pic/hexo/Basic%20Sample.png" alt></p>
+
+        </div>
+        
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/架构/" title="架构">架构</a>
+            
+            <a class="tag" href="/tags/C4模型/" title="C4模型">C4模型</a>
+            
+            <a class="tag" href="/tags/软件架构图/" title="软件架构图">软件架构图</a>
+            
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/玩玩前端/花式提高代码复用率/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">【玩玩前端】花式提高代码复用率</span>
+                <span class="nav-mobile">Prev</span>
+            </a>
+        
+        
+            <a class="next" href="/about/">
+                <span class="nav-default">个人自述（絮叨）</span>
+                <span class="nav-mobile">Next</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+    <a class="social-link" target="_blank" href="https://github.com/https://github.com/devchenyan">
+        <i class="iconfont icon-github"></i>
+    </a>
+    
+
+    
+
+    
+    <a class="social-link" target="_blank" href="http://weibo.com/https://weibo.com/u/1765980677">
+        <i class="iconfont icon-weibo"></i>
+    </a>
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2019
+            <a href="http://www.beian.miit.gov.cn">湘ICP备17022002号-1</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>
